@@ -1,0 +1,44 @@
+/*我的版本：双重循环模拟*/
+
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+        vector<int> answer(boxes.size(), 0);
+
+        for(int i = 0; i < boxes.size(); i++){
+            for(int j = 0; j < boxes.size(); j++){
+                if(boxes[j]!='0'){
+                    answer[i]+=(i-j)>0?(i-j):(j-i);
+                }
+            }
+        }
+        return answer;
+    }
+};
+
+/*官方版本：根据前一个盒子的操作数得到下一个盒子的操作数*/
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+        int left = boxes[0] - '0', right = 0, operations = 0;
+        int n = boxes.size();
+        for (int i = 1; i < n; i++) {
+            if (boxes[i] == '1') {
+                right++;
+                operations += i;
+            }
+        }
+        vector<int> res(n);
+        res[0] = operations;
+        for (int i = 1; i < n; i++) {
+            operations += left - right;
+            if (boxes[i] == '1') {
+                left++;
+                right--;
+            }
+            res[i] = operations;
+        }
+        return res;
+    }
+};
+
