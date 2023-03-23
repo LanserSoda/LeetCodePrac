@@ -1,0 +1,48 @@
+/*我的解法*/
+
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        int maxIndex;
+        for(int i = 0; i < score.size() - 1; i++){
+            maxIndex = i;
+            for(int j = i+1; j < score.size(); j++){
+                if(score[j][k]>score[maxIndex][k])
+                    maxIndex = j;
+            }
+            if(i!=maxIndex){
+                vector<int>tmp(score[0].size());
+                tmp = score[i];
+                score[i] = score[maxIndex];
+                score[maxIndex] = tmp;
+            }
+        }
+        return score;
+    }
+};
+
+/*官方解法？*/
+
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        int m = score.size(), n = score[0].size();
+
+        vector<int> indice(m);
+        iota(indice.begin(), indice.end(), 0);
+
+        sort(indice.begin(), indice.end(), [&](int a, int b){
+            return score[a][k] > score[b][k];
+        });
+
+        vector<vector<int>> ans;
+        ans.reserve(m);
+
+        for (int i : indice)
+        {
+            ans.push_back(move(score[i]));
+        }
+
+        return ans;
+    }
+};
