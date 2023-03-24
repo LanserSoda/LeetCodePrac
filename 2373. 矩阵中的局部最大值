@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<vector<int>> largestLocal(vector<vector<int>>& grid) {
+        int n = grid.size(), maxNine;
+        vector<vector<int>> maxLocal((n-2), vector<int>(n-2, 0));
+        for(int i = 0; i < n-2; i++){
+            for(int j = 0; j < n-2; j++){
+                maxNine = 0;
+                for(int p1 = 0; p1 <= 2; p1++)
+                    for(int p2 = 0; p2 <= 2; p2++)
+                        maxNine = maxNine>grid[i+p1][j+p2]?maxNine:grid[i+p1][j+p2];
+                maxLocal[i][j] = maxNine;
+            }
+        }
+        return maxLocal;
+    }
+};
