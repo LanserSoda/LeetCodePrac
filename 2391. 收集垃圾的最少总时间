@@ -1,0 +1,56 @@
+/**我的解法/
+
+class Solution {
+public:
+    int garbageCollection(vector<string>& garbage, vector<int>& travel) {
+        int sum = garbage[0].length();
+        int MD = 0, PD = 0, GD = 0;
+
+        for(int i = 1; i < garbage.size(); i++){
+            MD += travel[i-1];
+            PD += travel[i-1];
+            GD += travel[i-1];
+            for(auto const ch:garbage[i]){
+                if (ch == 'M'){
+                    sum+=1+MD;
+                    MD = 0;
+                }
+                if (ch == 'P'){
+                    sum+=1+PD;
+                    PD = 0;
+                }
+                if (ch == 'G'){
+                    sum+=1+GD;
+                    GD = 0;
+                }
+            }
+        }
+        return sum;
+    }
+};
+
+
+/*官方解法（也是我写的）*/
+
+class Solution {
+public:
+    int garbageCollection(vector<string>& garbage, vector<int>& travel) {
+        int sum = 0;
+        int M = 0, P = 0, G = 0;
+
+        for(int i = 0; i < garbage.size(); i++){
+            sum += garbage[i].length();
+            if(garbage[i].find('P')<garbage[i].length()) P = i;
+            if(garbage[i].find('M')<garbage[i].length()) M = i;
+            if(garbage[i].find('G')<garbage[i].length()) G = i;
+        }
+        if(P!=0)
+            for(int i = 0; i < P; i++) sum += travel[i];
+        if(M!=0)
+            for(int i = 0; i < M; i++) sum += travel[i];
+        if(G!=0)
+            for(int i = 0; i < G; i++) sum += travel[i];
+        
+        return sum;
+    }
+};
