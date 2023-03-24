@@ -1,0 +1,14 @@
+class Solution {
+public:
+    vector<int> decode(vector<int>& encoded, int first) {
+        vector<int> ans;
+        int decoder = first;
+        ans.push_back(decoder);
+
+        for(auto const& enc:encoded){
+            ans.push_back(enc^decoder);
+            decoder = enc^decoder;
+        }
+        return ans;
+    }
+};
