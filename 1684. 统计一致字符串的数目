@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int countConsistentStrings(string allowed, vector<string>& words) {
+        int sum = words.size();
+        for(auto const& str:words){
+            for(int i = 0; i < str.size(); i++){
+                if(allowed.find(str[i])>allowed.size()){
+                    sum--;
+                    break;
+                }
+            }
+        }
+        return sum;
+    }
+};
