@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
+        int max = 0;
+        for(auto& item:candies)
+            max = max>item?max:item;
+
+        vector<bool> res;
+        for(auto& item:candies){
+            if(max-item<=extraCandies)
+                res.push_back(true);
+            else
+                res.push_back(false);
+        }
+        return res;
+    }
+};
