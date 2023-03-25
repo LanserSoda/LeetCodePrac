@@ -1,0 +1,40 @@
+/*我的解法*/
+
+class Solution {
+public:
+    int numIdenticalPairs(vector<int>& nums) {
+        int count = 0;
+        unordered_map <int, vector<int>> map;
+
+        for(int i = 0; i < nums.size(); i++)
+            map[nums[i]].push_back(i);
+        
+        for(auto const& [key, val]:map){
+            if(val.size()>1)
+                count += val.size()*(val.size()-1)/2;
+        }
+        return count;
+    }
+};
+
+/*官方解法*/
+
+class Solution {
+public:
+    int numIdenticalPairs(vector<int>& nums) {
+        //哈希表
+        int hash[110], sum = 0;//1 <= nums.length <= 100
+        memset(hash, 0, sizeof(hash));//初始化
+        for(int i = 0; i < nums.size(); ++i){
+            //哈希表中对应位置的值为i出现的次数
+            ++hash[nums[i]];
+        }
+        for(int i = 1; i < 100; ++i){
+            //统计1-100中出现了好数对的对数
+            //例如：i出现了三次，那么应该有2个好数对
+            int x = hash[i];
+            sum += x*(x-1)/2;//两两组合的公式
+        }
+        return sum;
+    }
+};
