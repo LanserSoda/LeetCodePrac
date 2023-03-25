@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int differenceOfSum(vector<int>& nums) {
+        int esum = 0, nsum = 0;
+        string tmp;
+        for(auto const& item:nums){
+            esum+=item;
+            tmp = to_string(item);
+            for(auto const& ch:tmp)
+                nsum += ch-'0';
+        }
+        return abs(esum-nsum);
+    }
+};
