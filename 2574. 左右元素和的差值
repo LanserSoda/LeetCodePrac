@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> leftRigthDifference(vector<int>& nums) {
+        int leftSum = 0, rightSum = 0-nums[0];
+        for(auto& item:nums)
+            rightSum+=item;
+        vector<int> answer;
+        answer.push_back(abs(leftSum-rightSum));
+        for(int i = 1; i < nums.size(); i++){
+            leftSum+=nums[i-1];
+            rightSum-=nums[i];
+            answer.push_back(abs(leftSum-rightSum));
+        }
+        return answer;
+    }
+};
